@@ -1,0 +1,55 @@
+General
+=======
+
+To learn more about ./waf, refer to http://code.google.com/p/waf/
+and http://waf.googlecode.com/svn/docs/wafbook/single.html
+
+Ideally, you will need only to add your source files in wscript, which is basically a Python program.
+
+How to use skeleton
+===================
+
+Due to restrictions on lnxsrv, several steps necessary to compile and run (if you're using this skeleton):
+
+1. The following lines should be added to your ~/.bashrc
+
+export PATH=/usr/local/cs/bin:$PATH
+export LD_LIBRARY_PATH=/u/cs/grad/yingdi/boost/lib:/usr/local/lib64/:$LD_LIBRARY_PATH
+
+2. To configure environment
+
+./waf configure
+
+If there are any errors, please email me.
+
+3. To build/rebuild the code
+
+./waf
+
+4. All compiled executables are located in build/, so you can run them as this:
+
+build/http-proxy
+
+
+
+William Tam
+203892799
+                              --- README ----
+
+                                IMPORTANT!!!
+My code creates cache files when it get the response from the remote server. 
+So after running the first tester script, the current directory will have a few
+cache files. THESE CACHE FILES MUST BE DELETED BEFORE RUNNING THE SECOND TEST, 
+OTHERWISE THE SECOND TEST (the conditional get test) WILL FAIL. The reason is 
+because the timestamps will not be correct; they will have older timestamps.
+
+
+For this project, I decided to use fork() to facilitate the parallelism aspect.
+The main process will try to accept up to 10 clients and the child processes
+will handle actually reading in data from the client, sending data to the 
+remote server, and caching. I decided to use files for the cache, since it 
+is cumbersome to send data via inter-process communications. Each GET for a 
+webpage will have its own cache file. I find this easier to manage since I 
+do not have to parse through a file, which can be time consumming.
+
+
